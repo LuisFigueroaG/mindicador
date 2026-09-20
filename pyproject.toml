@@ -1,0 +1,41 @@
+[project]
+name = "mindicador"
+version = "0.0.0"
+description = "SDK simple en Python para mindicador.cl"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+authors = [{ name = "Luis Figueroa" }]
+license = { text = "MIT" }
+keywords = ["chile", "indicadores", "uf", "utm", "mindicador"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: Spanish",
+  "Topic :: Office/Business :: Financial",
+]
+urls = { Homepage = "https://github.com/LuisFigueroaG/mindicador", Repository = "https://github.com/LuisFigueroaG/mindicador" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mindicador"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pyright]
+typeCheckingMode = "basic"
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4.2",
+  "ruff>=0.14.1",
+  "pyright>=1.1.408",
+]

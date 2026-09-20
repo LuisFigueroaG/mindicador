@@ -1,0 +1,9 @@
+mindicador - SDK en Python
+
+Fuente de datos: https://mindicador.cl
+Este proyecto no tiene afiliacion con mindicador.cl ni con el Banco Central de Chile.
+Los datos pertenecen a sus fuentes originales. Cita la fuente cuando uses los valores.
+
+Referencia historica: existio un paquete R llamado mindicador (v0.1.5, autor Mauricio Vargas),
+publicado en CRAN en 2020 y archivado en 2021. El repo original en GitHub ya no esta disponible.
+Este SDK es una implementacion nueva desde cero. No copia codigo de ese paquete.
