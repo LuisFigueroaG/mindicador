@@ -9,6 +9,7 @@ from typing import Any, Self
 
 import httpx
 import pandas as pd
+import polars as pl
 
 from .errors import CodigoInvalido, ErrorAPI, ErrorRed, FechaInvalida
 from .models import Foto, Punto, Serie
@@ -107,6 +108,36 @@ class Client:
         if not df.empty:
             df["fecha"] = pd.to_datetime(df["fecha"])
         return df
+
+    def historial_pl(self, codigo: str) -> pl.DataFrame:
+        serie = self.historial(codigo)
+        df = pl.DataFrame(
+            [{"fecha": p.fecha, "valor": p.valor} for p in serie.puntos],
+            schema={"fecha": pl.Date, "valor": pl.Float64},
+        )
+        return df
+
+    def actual_pl(self) -> pl.DataFrame:
+        foto = self.actual()
+        return pl.DataFrame(
+            [
+                {
+                    "codigo": ind.codigo,
+                    "nombre": ind.nombre,
+                    "unidad": ind.unidad,
+                    "fecha": ind.fecha,
+                    "valor": ind.valor,
+                }
+                for ind in foto.indicadores.values()
+            ],
+            schema={
+                "codigo": pl.String,
+                "nombre": pl.String,
+                "unidad": pl.String,
+                "fecha": pl.Date,
+                "valor": pl.Float64,
+            },
+        )
 
     def actual_df(self) -> pd.DataFrame:
         foto = self.actual()

@@ -297,3 +297,17 @@ def test_cache_ttl_corto_expira() -> None:
     time.sleep(0.08)
     cli.historial("uf")
     assert llamadas["n"] == 2
+
+
+def test_historial_pl_columnas() -> None:
+    cli = cliente_con({"/api/uf": SERIE})
+    df = cli.historial_pl("uf")
+    assert df.columns == ["fecha", "valor"]
+    assert len(df) == 2
+
+
+def test_actual_pl_columnas() -> None:
+    cli = cliente_con({"/api": FOTO})
+    df = cli.actual_pl()
+    assert df.columns == ["codigo", "nombre", "unidad", "fecha", "valor"]
+    assert len(df) == 2

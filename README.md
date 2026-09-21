@@ -91,6 +91,8 @@ print(actual_df[["codigo", "valor"]])
 
 Columnas de serie: `fecha`, `valor`. Columnas de foto: `codigo`, `nombre`, `unidad`, `fecha`, `valor`.
 
+En Polars es igual con `historial_pl` y `actual_pl`.
+
 ### Caché en memoria
 
 Apagado por defecto. Se prende con `cache=True`. Guarda las 4 lecturas con TTL de 1 hora.

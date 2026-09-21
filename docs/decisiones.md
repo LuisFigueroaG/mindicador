@@ -9,14 +9,15 @@
 - Alcance v0.1: nucleo completo de lectura. Foto actual, serie reciente, serie por anio y valor por fecha. Sin cache, sin CLI. Definido el 2026-09-21.
 - Sync: solo sync en v0.1. Sin async.
 - Modelo: Pydantic para indicador, punto y foto actual.
-- Dependencias: `httpx` mas `pydantic` como base. `pandas` incluido en v0.1. `polars` queda para 1.0. Diseno con eso en cuenta.
+- Dependencias: `httpx` mas `pydantic` como base. `pandas` incluido en v0.1. `polars` obligatorio desde 0.3.
 - Errores: excepciones tipadas en espanol. Casos: fecha invalida, codigo invalido y falla de red.
 - Fechas: entrada con `date` e `int`. Valida en cliente antes de llamar. Formato puntual `dd-mm-yyyy`.
-- Cache: sin cache en v0.1. Cache en memoria en 1.0.
+- Cache: sin cache en v0.1. Cache en memoria opt-in desde 0.2.
 - CLI: sin CLI en v0.1. Solo libreria.
 - Versionado: `0.x` rapido. Se permite quiebre en minor antes de 1.0.
 - Publicacion: subir a PyPI tras la 1.0. Revisar si `mindicador` sigue libre antes de publicar.
 - Codigos consultables: 11. Se excluye `dolar_intercambio` por ser dato descontinuado de 2014. Decidido el 2026-09-21.
+- Polars 0.3: obligatorio, con `historial_pl` y `actual_pl` para serie y foto. Decidido el 2026-09-21.
 - Cache 0.2: solo cache en memoria. Opt-in apagado por defecto. TTL de 1 hora para las 4 lecturas. Flag en `Client` con metodo para limpiar a mano. Decidido el 2026-09-21.
 - Releases: version dinamica por tag con `hatch-vcs`. El tag `v*` corre checks y publica. Trusted Publishing contra TestPyPI y PyPI. Changelog manual. Primer tag `0.2.0`. Decidido el 2026-09-21.
 - Referencia: ver `docs/api-referencia.md` con pruebas del 2026-09-20.

@@ -1,7 +1,7 @@
 # Diseno v0.1 (propuesta)
 
 Base: `docs/decisiones.md` del 2026-09-21 y `docs/api-referencia.md`.
-Estado: propuesta para conversar. Sin codigo aun.
+Estado: propuesta original de v0.1. Superada en 0.2 por el cache opt-in y en 0.3 por Polars obligatorio.
 
 ## Objetivo
 
