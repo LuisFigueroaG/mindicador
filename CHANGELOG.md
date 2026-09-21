@@ -1,6 +1,10 @@
 # Changelog
 
-Formato basado en Keep a Changelog. Este proyecto usa SemVer.
+Formato basado en Keep a Changelog. Este proyecto usa SemVer. Desde 1.0 los quiebres van solo en version mayor.
+
+## [1.0.0] - 2026-09-21
+
+Primera version estable. Sin cambios de codigo respecto a 0.3.0. Publicacion real en PyPI.
 
 ## [0.3.0] - 2026-09-21
 
