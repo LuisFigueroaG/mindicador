@@ -36,6 +36,7 @@ packages = ["src/mindicador"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+exclude = ["src/mindicador/_version.py"]
 
 [tool.pyright]
 typeCheckingMode = "basic"

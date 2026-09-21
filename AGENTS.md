@@ -15,6 +15,7 @@
 - Python minimo 3.12. Usa `uv` para deps y grupos.
 - Nivel 0 para docs: revisa diff, enlaces y consistencia. No corras lint, typecheck, tests ni build.
 - Nivel 2 para codigo futuro: acota `ruff`, `pyright` y `pytest` al paquete o test tocado.
+- Antes de pushear: corre `uv run ruff check .`, `uv run ruff format --check .`, `uv run pyright` y `uv run pytest -q`. No subas con checks en rojo.
 
 ## Versionamiento
 
