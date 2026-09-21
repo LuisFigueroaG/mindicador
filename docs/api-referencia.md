@@ -28,6 +28,8 @@ Notas de ruta:
 
 ## Codigos
 
+El SDK consulta 11. `dolar_intercambio` existe en la API pero se excluye por ser dato descontinuado de 2014.
+
 Foto del 2026-09-20T23:00:00.000Z. Valores de ese momento.
 
 | codigo | nombre | unidad | fecha | valor |

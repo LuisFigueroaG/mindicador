@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from contextlib import suppress
 from datetime import date
-from typing import Self
+from time import monotonic
+from typing import Any, Self
 
 import httpx
 import pandas as pd
@@ -18,7 +19,6 @@ CODIGOS = [
     "uf",
     "ivp",
     "dolar",
-    "dolar_intercambio",
     "euro",
     "ipc",
     "utm",
@@ -43,16 +43,25 @@ class Client:
         timeout: float = 10.0,
         base_url: str = BASE_URL,
         transporte: httpx.BaseTransport | None = None,
+        cache: bool = False,
+        cache_ttl: float = 3600.0,
     ) -> None:
         self._timeout = timeout
         self._base = base_url.rstrip("/")
         self._http = httpx.Client(timeout=timeout, transport=transporte)
+        self._cache_on = cache
+        self._cache_ttl = cache_ttl
+        self._cache: dict[str, tuple[float, Any]] = {}
 
     def cerrar(self) -> None:
         self._http.close()
 
     def close(self) -> None:
         self.cerrar()
+
+    def limpiar_cache(self) -> None:
+        """Borra todo lo guardado en el cache de memoria."""
+        self._cache.clear()
 
     def __del__(self) -> None:
         with suppress(Exception):
@@ -131,6 +140,11 @@ class Client:
             raise FechaInvalida(_MENSAJE_FECHA.format(detalle=f"fecha {fecha!r} no es date"))
 
     def _get(self, ruta: str, codigo: str | None = None) -> dict:
+        ahora = monotonic()
+        if self._cache_on and ruta in self._cache:
+            expira, guardado = self._cache[ruta]
+            if ahora < expira:
+                return guardado
         url = f"{self._base}{ruta}"
         try:
             respuesta = self._http.get(url)
@@ -139,7 +153,10 @@ class Client:
                 respuesta = self._http.get(url)
             except (httpx.ConnectError, httpx.TimeoutException, httpx.NetworkError) as e2:
                 raise ErrorRed(_MENSAJE_RED.format(detalle=str(e2))) from e2
-        return self._revisa(respuesta, codigo)
+        dato = self._revisa(respuesta, codigo)
+        if self._cache_on:
+            self._cache[ruta] = (ahora + self._cache_ttl, dato)
+        return dato
 
     def _revisa(self, respuesta: httpx.Response, codigo: str | None = None) -> dict:
         try:

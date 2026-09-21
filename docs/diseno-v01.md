@@ -12,7 +12,7 @@ Cliente sync de lectura. Cubre las 4 formas reales. Falla en espanol claro.
 - `Punto`: `fecha: date`, `valor: float`.
 - `IndicadorActual`: `codigo: str`, `nombre: str`, `unidad: str`, `fecha: date`, `valor: float`.
 - `Serie`: `codigo: str`, `nombre: str`, `unidad: str`, `puntos: list[Punto]`. Orden descendente como la API.
-- `Foto`: `fecha: datetime`, `indicadores: dict[str, IndicadorActual]`. 12 llaves.
+- `Foto`: `fecha: datetime`, `indicadores: dict[str, IndicadorActual]`. 11 llaves (sin dolar_intercambio, excluido por descontinuado).
 
 ## Cliente
 

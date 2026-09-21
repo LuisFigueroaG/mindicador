@@ -235,3 +235,65 @@ def test_foto_incompleta_omite_llaves() -> None:
     cli = cliente_con({"/api": parcial})
     foto = cli.actual()
     assert list(foto.indicadores) == ["uf"]
+
+
+def test_dolar_acuerdo_no_consultable() -> None:
+    cli = cliente_con({})
+    with pytest.raises(CodigoInvalido):
+        cli.historial("dolar_intercambio")
+
+
+def test_sin_cache_llama_dos_veces() -> None:
+    llamadas = {"n": 0}
+
+    def maneja(pedido: httpx.Request) -> httpx.Response:
+        llamadas["n"] += 1
+        return httpx.Response(200, json=SERIE)
+
+    cli = Client(transporte=httpx.MockTransport(maneja))
+    cli.historial("uf")
+    cli.historial("uf")
+    assert llamadas["n"] == 2
+
+
+def test_con_cache_llama_una_vez() -> None:
+    llamadas = {"n": 0}
+
+    def maneja(pedido: httpx.Request) -> httpx.Response:
+        llamadas["n"] += 1
+        return httpx.Response(200, json=SERIE)
+
+    cli = Client(transporte=httpx.MockTransport(maneja), cache=True)
+    cli.historial("uf")
+    cli.historial("uf")
+    assert llamadas["n"] == 1
+
+
+def test_limpiar_cache_fuerza_llamada() -> None:
+    llamadas = {"n": 0}
+
+    def maneja(pedido: httpx.Request) -> httpx.Response:
+        llamadas["n"] += 1
+        return httpx.Response(200, json=SERIE)
+
+    cli = Client(transporte=httpx.MockTransport(maneja), cache=True)
+    cli.historial("uf")
+    cli.limpiar_cache()
+    cli.historial("uf")
+    assert llamadas["n"] == 2
+
+
+def test_cache_ttl_corto_expira() -> None:
+    import time
+
+    llamadas = {"n": 0}
+
+    def maneja(pedido: httpx.Request) -> httpx.Response:
+        llamadas["n"] += 1
+        return httpx.Response(200, json=SERIE)
+
+    cli = Client(transporte=httpx.MockTransport(maneja), cache=True, cache_ttl=0.05)
+    cli.historial("uf")
+    time.sleep(0.08)
+    cli.historial("uf")
+    assert llamadas["n"] == 2
