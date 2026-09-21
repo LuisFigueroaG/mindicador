@@ -4,7 +4,11 @@ version = "0.0.0"
 description = "SDK simple en Python para mindicador.cl"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "httpx>=0.28.1",
+    "pandas>=3.0.6",
+    "pydantic>=2.13.5",
+]
 authors = [{ name = "Luis Figueroa" }]
 license = { text = "MIT" }
 keywords = ["chile", "indicadores", "uf", "utm", "mindicador"]

@@ -6,4 +6,14 @@
 - Idioma: espanol para README, docs y mensajes.
 - Licencia: MIT. Implementacion nueva desde cero, sin copiar codigo del paquete R archivado.
 - Visibilidad: publico para lectura, sin contribuciones por ahora. Issues, Wiki y Discussions apagados.
-- Diseno de API: pendiente. No hay firmas ni tipos definidos en esta fase.
+- Alcance v0.1: nucleo completo de lectura. Foto actual, serie reciente, serie por anio y valor por fecha. Sin cache, sin CLI. Definido el 2026-09-21.
+- Sync: solo sync en v0.1. Sin async.
+- Modelo: Pydantic para indicador, punto y foto actual.
+- Dependencias: `httpx` mas `pydantic` como base. `pandas` incluido en v0.1. `polars` queda para 1.0. Diseno con eso en cuenta.
+- Errores: excepciones tipadas en espanol. Casos: fecha invalida, codigo invalido y falla de red.
+- Fechas: entrada con `date` e `int`. Valida en cliente antes de llamar. Formato puntual `dd-mm-yyyy`.
+- Cache: sin cache en v0.1. Cache en memoria en 1.0.
+- CLI: sin CLI en v0.1. Solo libreria.
+- Versionado: `0.x` rapido. Se permite quiebre en minor antes de 1.0.
+- Publicacion: subir a PyPI tras la 1.0. Revisar si `mindicador` sigue libre antes de publicar.
+- Referencia: ver `docs/api-referencia.md` con pruebas del 2026-09-20.
