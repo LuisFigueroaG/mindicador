@@ -113,6 +113,47 @@ Para otro TTL en segundos: `Client(cache=True, cache_ttl=900)`.
 
 El código es sensible a mayúsculas. Un código fuera de la lista falla local sin llamar a la API. `dolar_intercambio` no es consultable por ser un dato descontinuado de 2014.
 
+### Qué es cada uno
+
+| Código | Qué es | Unidad | Frecuencia |
+|---|---|---|---|
+| `uf` | Unidad de Fomento, reajusta deudas y arriendos | Pesos | Diaria |
+| `ivp` | Índice de Valor Promedio, usado en créditos hipotecarios | Pesos | Diaria |
+| `dolar` | Dólar observado, tipo de cambio oficial del día | Pesos | Diaria hábil |
+| `euro` | Euro observado en pesos | Pesos | Diaria hábil |
+| `ipc` | Índice de Precios al Consumidor, mide la inflación | Porcentaje | Mensual |
+| `utm` | Unidad Tributaria Mensual, multas e impuestos | Pesos | Mensual |
+| `imacec` | Actividad económica mensual del país | Porcentaje | Mensual |
+| `tpm` | Tasa de Política Monetaria del Banco Central | Porcentaje | Por reunión |
+| `libra_cobre` | Precio de la libra de cobre | Dólar | Diaria hábil |
+| `tasa_desempleo` | Desempleo del trimestre móvil | Porcentaje | Mensual |
+| `bitcoin` | Precio de bitcoin | Dólar | Diaria |
+
+## Casos de uso
+
+### Reajustar un arriendo por UF
+
+```python
+serie = cli.historial("uf")
+variacion = serie.puntos[0].valor / serie.puntos[-1].valor - 1
+print(f"La UF varió {variacion:.2%} en 30 días")
+```
+
+### Convertir una multa de UTM a pesos
+
+```python
+foto = cli.actual()
+utm = foto.indicadores["utm"].valor
+print(f"Multa de 2 UTM: ${2 * utm:,.0f}".replace(",", "."))
+```
+
+### Inflación del año con IPC
+
+```python
+anual = cli.historial_anual("ipc", 2024)
+print(f"IPC dic 2024: {anual.puntos[0].valor}%")
+```
+
 ## Errores
 
 Todos heredan de `MindicadorError`. Mensajes en español.
