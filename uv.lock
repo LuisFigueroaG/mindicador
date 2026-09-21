@@ -107,7 +107,6 @@ wheels = [
 
 [[package]]
 name = "mindicador"
-version = "0.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },

@@ -18,4 +18,5 @@
 - Publicacion: subir a PyPI tras la 1.0. Revisar si `mindicador` sigue libre antes de publicar.
 - Codigos consultables: 11. Se excluye `dolar_intercambio` por ser dato descontinuado de 2014. Decidido el 2026-09-21.
 - Cache 0.2: solo cache en memoria. Opt-in apagado por defecto. TTL de 1 hora para las 4 lecturas. Flag en `Client` con metodo para limpiar a mano. Decidido el 2026-09-21.
+- Releases: version dinamica por tag con `hatch-vcs`. El tag `v*` corre checks y publica. Trusted Publishing contra TestPyPI y PyPI. Changelog manual. Primer tag `0.2.0`. Decidido el 2026-09-21.
 - Referencia: ver `docs/api-referencia.md` con pruebas del 2026-09-20.

@@ -1,6 +1,6 @@
 [project]
 name = "mindicador"
-version = "0.0.0"
+dynamic = ["version"]
 description = "SDK simple en Python para mindicador.cl"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -21,8 +21,14 @@ classifiers = [
 urls = { Homepage = "https://github.com/LuisFigueroaG/mindicador", Repository = "https://github.com/LuisFigueroaG/mindicador" }
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/mindicador/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/mindicador"]
